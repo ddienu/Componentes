@@ -1,3 +1,4 @@
+import 'package:componentes/src/utils/icono_string_util.dart';
 import 'package:flutter/material.dart';
 
 import 'package:componentes/src/providers/menu_provider.dart';
@@ -18,27 +19,42 @@ class HomePage extends StatelessWidget {
 
   Widget _lista() {
 
-    print (menuProvider.opciones);
+    return FutureBuilder(
 
-    return ListView(
-      children: _listaItems(),
+      future: menuProvider.cargarData(),
+      initialData: [],
+      builder: ( context, AsyncSnapshot snapshot ){
+
+        return ListView(
+            children: _listaItems( snapshot.data ),
+          );
+      },
 
     );
 
   }
 
-  List<Widget> _listaItems() {
-    return [
+  List<Widget> _listaItems( List<dynamic> data) {
+     
+     final List<Widget> opciones = [];
 
-      ListTile ( title: Text('Componente 1')),
-      Divider(),
-      ListTile ( title: Text('Componente 2')),
-      Divider(),
-      ListTile ( title: Text('Componente 3')),
-    ];
-  }
-}
+     data.forEach(( opt ) { 
 
+       final widgetTemp = ListTile (
+        
+         title: Text( opt ['texto']),
+         leading: getIcon( opt['icon']),
+         trailing: Icon ( Icons.keyboard_arrow_right, color: Colors.blue ),
+         onTap: (){
 
+         },
+       );
 
+       opciones..add ( widgetTemp )
+               ..add ( Divider () );
 
+     });
+
+     return opciones;
+  
+}}
