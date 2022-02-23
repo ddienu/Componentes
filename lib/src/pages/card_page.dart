@@ -14,7 +14,9 @@ class CardPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(10.0),
         children: [
-          _cardTipo1()
+          _cardTipo1(),
+          SizedBox(height: 30.0),
+          _cardTipo2(),
         ],
       ),
     );
@@ -45,6 +47,28 @@ class CardPage extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  _cardTipo2() {
+
+    return Card(
+       child: Column(
+         children: [
+
+           FadeInImage(
+             image: NetworkImage('https://www.nationalgeographic.com.es/medio/2018/02/27/playa-de-isuntza-lekeitio__1280x720.jpg'),
+             placeholder: AssetImage ('Assets/jar-loading.gif'),
+             fadeInDuration: Duration( milliseconds: 200),
+             height: 250.0,
+             fit: BoxFit.cover,
+           ),
+           Container(
+             padding: EdgeInsets.all(10.0),
+             child: Text('Título de la imágen'),
+           ),
+         ],
+       ),
     );
   }
 }
