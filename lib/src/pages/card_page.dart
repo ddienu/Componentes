@@ -25,6 +25,8 @@ class CardPage extends StatelessWidget {
   _cardTipo1() {
 
     return Card(
+      elevation: 10.0,
+      shape: RoundedRectangleBorder (borderRadius: BorderRadius.circular(25.0)),
       child: Column(
         children: [
           ListTile(
@@ -52,12 +54,12 @@ class CardPage extends StatelessWidget {
 
   _cardTipo2() {
 
-    return Card(
+    final card = Container(
        child: Column(
          children: [
 
            FadeInImage(
-             image: NetworkImage('https://www.nationalgeographic.com.es/medio/2018/02/27/playa-de-isuntza-lekeitio__1280x720.jpg'),
+             image: NetworkImage ('https://twenergy.com/wp-content/uploads/2019/08/h%C3%A1bitos-mantener-limpias-playas-1280x720.jpg'),
              placeholder: AssetImage ('Assets/jar-loading.gif'),
              fadeInDuration: Duration( milliseconds: 200),
              height: 250.0,
@@ -70,5 +72,27 @@ class CardPage extends StatelessWidget {
          ],
        ),
     );
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: Colors.white,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            blurRadius: 10.0,
+            color: Colors.black26,
+            spreadRadius: 2.0,
+            offset: Offset(2.0, 10.0)
+          )
+        ]
+        //color: Colors.red,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20.0),
+        child: card,
+      ),
+    );
+
+      
   }
 }
