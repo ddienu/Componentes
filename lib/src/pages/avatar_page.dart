@@ -37,7 +37,13 @@ class AvatarPage extends StatelessWidget {
           fadeInDuration: Duration( milliseconds: 200),
         ),
       ),
-    );
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.arrow_back),
+        onPressed: (){
+          Navigator.pop(context);
+        },
+      ),
+     );
 
     }
   }
