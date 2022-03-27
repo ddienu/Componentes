@@ -49,7 +49,7 @@ class _InputPageState extends State<InputPage> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
-        counter: Text('Letras ${_nombre?.length}'),
+        counter: Text('Letras ${_nombre.length}'),
         hintText: 'Nombre de la persona',
         labelText: 'Nombre',
         helperText: 'Sólo nombre',
@@ -163,6 +163,7 @@ class _InputPageState extends State<InputPage> {
       initialDate: new DateTime.now(),
       firstDate: new DateTime(2018)
       lastDate: new DateTime(2025)
+      locale: Locale('es' 'ES')
     );
 
     if ( picked != null ) {
