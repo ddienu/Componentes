@@ -17,8 +17,10 @@ class MyApp extends StatelessWidget {
       title: 'Componentes App',
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
+         
     GlobalMaterialLocalizations.delegate,
     GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
   ],
    supportedLocales: [
     Locale('en', 'EN'), // English, no country code
