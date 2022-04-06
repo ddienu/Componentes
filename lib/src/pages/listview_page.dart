@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'dart:async';
+
 
 class ListaPage extends StatefulWidget {
   ListaPage({Key? key}) : super(key: key);
@@ -10,10 +12,11 @@ class ListaPage extends StatefulWidget {
 
 class _ListaPageState extends State<ListaPage> {
 
-  ScrollController _scrollController = new ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
-  final List<int> _listaNumeros = [];
+  final List<int> _listaNumeros = [1,2,3,4,5,6,7,8,9,10];
   int _ultimoItem = 0;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -24,8 +27,15 @@ class _ListaPageState extends State<ListaPage> {
     _scrollController.addListener(() { 
 
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent);
-      _agregar10();
+      //_agregar10();
+      fetchData();
     });
+
+    @override
+  void dispose(){
+      _scrollController.dispose();
+  };
+
   }
   @override
   Widget build(BuildContext context) {
@@ -33,7 +43,15 @@ class _ListaPageState extends State<ListaPage> {
       appBar: AppBar(
         title: Text('Listas'),
       ),
-      body: _crearLista(),
+      body: Stack(
+        children: [
+          
+      _crearLista(),
+      _crearLoading(),
+
+        ],
+      ) 
+      
     );
   }
 
@@ -44,7 +62,7 @@ class _ListaPageState extends State<ListaPage> {
       itemCount: _listaNumeros.length,
       itemBuilder: (BuildContext context, int index){
 
-        final imagen = _listaNumeros[index];
+        final imagen = _listaNumeros[ index ];
 
         return FadeInImage(
           image: NetworkImage('https://picsum.photos/500/300/?image=$imagen'),
@@ -64,5 +82,52 @@ class _ListaPageState extends State<ListaPage> {
      setState(() {
        
      });
+  }
+
+  Future fetchData() async {
+
+    _isLoading = true;
+    setState(() {});
+
+  final duration = new Duration(seconds: 2);
+  return new Timer(duration, respuestaHTTP);
+  }
+
+  void respuestaHTTP(){
+
+    _isLoading = false;
+
+    _scrollController.animateTo(
+      _scrollController.position.pixels + 100,
+      curve: Curves.fastOutSlowIn,
+      duration: Duration(milliseconds: 250),
+
+
+    );
+    _agregar10();
+  }
+
+  _crearLoading() {
+
+    if ( _isLoading ){
+
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+      CircularProgressIndicator(),
+            ],
+          ),
+          SizedBox(height: 15.0)
+        ],
+      );
+
+    }else{
+      return Container();
+    }
+
   }
 }
